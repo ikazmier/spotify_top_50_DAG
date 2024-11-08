@@ -2,8 +2,8 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
-from scripts.data_collector import collect_then_upload_json_raw_data_to_gcs
-from scripts.data_transformer import (
+from plugins.scripts.data_collector import collect_then_upload_json_raw_data_to_gcs
+from plugins.scripts.data_transformer import (
     collect_then_transform_then_upload_json_processed_data_to_gcs,
 )
 from airflow.providers.google.cloud.transfers.gcs_to_bigquery import (
@@ -88,9 +88,7 @@ move_json_raw_data_from_gcs_stage_to_archive = GCSToGCSOperator(
 load_json_processed_data_from_gcs_stage_to_bigquery = GCSToBigQueryOperator(
     task_id="load_json_processed_data_from_gcs_to_bigquery",
     bucket=GCS_BUCKET_NAME,
-    source_objects=[
-        "JSON_PROCESSED_API_data/stage/json_processed_playlist_data"
-    ],
+    source_objects=["JSON_PROCESSED_API_data/stage/json_processed_playlist_data"],
     destination_project_dataset_table=f"{BQ_PROJECT_ID}.{BQ_DATASET}.{BQ_TABLE}",
     schema_fields=[
         {"name": "playlist_id", "type": "STRING", "mode": "NULLABLE"},
