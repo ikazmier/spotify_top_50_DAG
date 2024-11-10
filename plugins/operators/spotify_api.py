@@ -1,8 +1,9 @@
 from airflow.models import BaseOperator
+
 from enum import Enum
 
 
-class Endpoint(enum.Enum):
+class Endpoint(Enum):
     pass
 
 
@@ -13,5 +14,5 @@ class SpotifyToGCSOperator(BaseOperator):
 
     pass
 
-    def execute(self, endpoint: Endpoint, context: Context):
-        pass
+    #def execute(self, endpoint: Endpoint, context: Context):
+       # pass
