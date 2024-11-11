@@ -2,6 +2,7 @@ from datetime import datetime
 from airflow import DAG
 from operators.spotify_api import SpotifyToGCSOperator
 
+from api_utils.spotify.playlist.playlist_report import PLAYLIST_REPORT
 
 
 default_args = {
@@ -20,7 +21,7 @@ with DAG(
     schedule_interval=None,
 ):
 
-    spotify_to_gcs = SpotifyToGCSOperator(api_connection_id="spotify_api", task_id = "spotify_to_gcs")
+    spotify_to_gcs = SpotifyToGCSOperator(task_id = "spotify_to_gcs", api_connection_id="spotify_api", report_config= PLAYLIST_REPORT)
 
 
 

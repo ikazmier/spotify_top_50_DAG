@@ -60,8 +60,8 @@ class SpotifyApiHook(BaseHook):
         data = {"grant_type": "client_credentials"}
 
         response = request(
-            "POST",
-            "https://accounts.spotify.com/api/token",
+            method="POST",
+            url="https://accounts.spotify.com/api/token",
             headers=headers,
             data=data,
             timeout=60,
