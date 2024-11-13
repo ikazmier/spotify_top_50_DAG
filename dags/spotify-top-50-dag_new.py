@@ -2,7 +2,7 @@ from datetime import datetime
 from airflow import DAG
 from operators.spotify_api import SpotifyToGCSOperator
 
-from api_utils.spotify.playlist.playlist_report import PLAYLIST_REPORT
+from reports.spotify.playlist_report import PLAYLIST_REPORT
 
 
 default_args = {

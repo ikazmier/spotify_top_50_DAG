@@ -1,7 +1,7 @@
 """Module for report configuration class."""
 
 from enum import Enum
-from typing import List
+from typing import Tuple
 
 
 class ApiEndpoint(Enum):
@@ -26,7 +26,7 @@ class ReportConfiguration:
     def __init__(
         self,
         endpoint: ApiEndpoint,
-        resource_ids: List[str],
+        resource_ids: Tuple[str, ...],
         api_version: str = "v1",
         **additional_request_params,
     ):

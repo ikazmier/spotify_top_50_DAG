@@ -1,6 +1,6 @@
 """Module with Spotify api fields for the playlist endpoint https://developer.spotify.com/documentation/web-api/reference/get-playlist"""
 
-from utils.field import BigQueryDataType, Field
+from api_utils.field import BigQueryDataType, Field
 
 COLLABORATIVE = Field(
     api_field_name="collaborative",
