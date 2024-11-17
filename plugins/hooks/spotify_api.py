@@ -12,16 +12,16 @@ from requests import request
 class SpotifyApiHook(BaseHook):
     """Airflow Hook to interact with the Spotify API."""
 
-    def __init__(self, connection_id: str, *args, **kwargs):
+    def __init__(self, api_connection_id: str, *args, **kwargs):
         """Initialize the SpotifyApiHook instance.
 
         Args:
-            connection_id: a string name of the connection to Spotify API.
+            api_connection_id: a string name of the connection to Spotify API.
             *args: an additional parameters to be passed into the class intance.
             **kwargs: an additional parameters to be passed into the class instance.
         """
         super().__init__(*args, **kwargs)
-        self.connection_id = connection_id
+        self.api_connection_id = api_connection_id
         self.client_required_fields = ["client_id", "client_secret"]
 
     def get_conn(self):
@@ -33,9 +33,10 @@ class SpotifyApiHook(BaseHook):
         """Fetch and validate Spotify API connection configuration.
 
         Returns:
-            A dictionary with fetched spotify secrets needed to obtain token."""
-        self.log.info("Fetching Spotify API connection: %s", self.connection_id)
-        conn = self.get_connection(self.connection_id)
+            A dictionary with fetched spotify secrets needed to obtain token.
+        """
+        self.log.info("Fetching Spotify API connection: %s", self.api_connection_id)
+        conn = self.get_connection(self.api_connection_id)
         config = conn.extra_dejson
         missing_keys = set(self.client_required_fields) - set(config.keys())
         if missing_keys:
@@ -48,7 +49,8 @@ class SpotifyApiHook(BaseHook):
         """Get an access token from the Spotify API.
 
         Returns:
-            A token needed to request data from Spotify API in form of string."""
+            A token needed to request data from Spotify API in form of string.
+        """
         conn_config = self.fetch_spotify_conn_config
         credentials = f"{conn_config['client_id']}:{conn_config['client_secret']}"
         encoded_credentials = b64encode(credentials.encode("utf-8")).decode("utf-8")

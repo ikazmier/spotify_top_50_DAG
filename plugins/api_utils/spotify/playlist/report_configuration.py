@@ -5,6 +5,8 @@ from typing import Tuple
 
 
 class ApiEndpoint(Enum):
+    """Enumeration class for Spotify API endpoints."""
+
     ARTISTS = "artists"
     ARTIST_ALBUMS = ["artists", "albums"]
     ARTIST_TRACKS = ["artists", "tracks"]
@@ -22,7 +24,8 @@ class ApiEndpoint(Enum):
 
 
 class ReportConfiguration:
-
+    """Class for configuration of Spotify API report."""
+    
     def __init__(
         self,
         endpoint: ApiEndpoint,
@@ -30,6 +33,14 @@ class ReportConfiguration:
         api_version: str = "v1",
         **additional_request_params,
     ):
+        """Initialize ReportConfiguration instance.
+
+        Args:
+            endpoint: an instance of ApiEndpoint.
+            resouce_ids: an id of an Spotify resource.
+            api_version: a version of API to be used, defaults to "v1".
+            **additional_request_params: an additional reqest params to be passed into request url.
+        """
         self.endpoint = endpoint
         self.resource_ids = resource_ids
         self.api_version = api_version
@@ -37,6 +48,7 @@ class ReportConfiguration:
 
     @property
     def additional_request_params_str(self) -> str:
+        """An additional request params to be passed into API request."""
         if self.additional_request_params:
             params_list = [
                 f"{key}={value}"
@@ -48,6 +60,11 @@ class ReportConfiguration:
 
     @property
     def report_request_url(self) -> str:
+        """A report url to be passed into API reqest.
+
+        Returns:
+            A request URL.
+        """
         if len(self.resource_ids) == 1:
             if isinstance(self.endpoint.value, list):
                 request_url = (
