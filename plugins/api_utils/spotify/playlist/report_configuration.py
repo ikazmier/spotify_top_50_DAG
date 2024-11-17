@@ -50,9 +50,21 @@ class ReportConfiguration:
     def report_request_url(self) -> str:
         if len(self.resource_ids) == 1:
             if isinstance(self.endpoint.value, list):
-                request_url = f"https://api.spotify.com/{self.api_version}/{self.endpoint.value[0]}/{self.resource_ids[0]}/{self.endpoint.value[1]}{self.additional_request_params_str}"  
+                request_url = (
+                    f"https://api.spotify.com/{self.api_version}/"
+                    f"{self.endpoint.value[0]}/{self.resource_ids[0]}/"
+                    f"{self.endpoint.value[1]}{self.additional_request_params_str}"
+                )
             else:
-                request_url = f"https://api.spotify.com/{self.api_version}/{self.endpoint.value}/{self.resource_ids[0]}{self.additional_request_params_str}"
+                request_url = (
+                    f"https://api.spotify.com/{self.api_version}/"
+                    f"{self.endpoint.value}/{self.resource_ids[0]}"
+                    f"{self.additional_request_params_str}"
+                )
         else:
-            request_url = f"https://api.spotify.com/{self.api_version}/{self.endpoint.value}?ids={'%2C'.join(self.resource_ids)}{self.additional_request_params_str}"
+            request_url = (
+                f"https://api.spotify.com/{self.api_version}/"
+                f"{self.endpoint.value}?ids={'%2C'.join(self.resource_ids)}"
+                f"{self.additional_request_params_str}"
+            )
         return request_url

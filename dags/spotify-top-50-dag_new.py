@@ -21,8 +21,17 @@ with DAG(
     schedule_interval=None,
 ):
 
-    spotify_to_gcs = SpotifyToGCSOperator(task_id = "spotify_to_gcs", api_connection_id="spotify_api", report_config= PLAYLIST_REPORT)
-
+    spotify_to_gcs = SpotifyToGCSOperator(
+        task_id="spotify_to_gcs",
+        api_connection_id="spotify_api",
+        report_config=PLAYLIST_REPORT,
+        gcs_connection_id="google_cloud_default",
+        gcs_bucket_name="spotify_api_raw",
+        gcs_object_name="spotify_raw_object_test",
+        gcp_project_id="ga-samples-395018",
+        gcs_storage_class="MULTI_REGIONAL",
+        gcs_location="EU",
+    )
 
 
 spotify_to_gcs
